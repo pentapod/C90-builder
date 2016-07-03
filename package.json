@@ -1,0 +1,30 @@
+{
+  "name": "c90-builder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pentapod/C90-builder.git"
+  },
+  "author": "spring-raining",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pentapod/C90-builder/issues"
+  },
+  "homepage": "https://github.com/pentapod/C90-builder#readme",
+  "devDependencies": {
+    "babel-core": "^6.10.4",
+    "babel-preset-es2015": "^6.9.0",
+    "gulp": "^3.9.1",
+    "gulp-load-plugins": "^1.2.4",
+    "gulp-pug": "^3.0.3",
+    "jstransformer-markdown": "^1.1.0",
+    "node-prismjs": "^0.1.0",
+    "pug": "^2.0.0-beta3"
+  }
+}

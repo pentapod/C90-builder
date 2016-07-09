@@ -5,26 +5,39 @@ import gulpLoadPlugins from 'gulp-load-plugins';
 import Prism from 'node-prismjs';
 import pug from 'pug';
 
-const $ = gulpLoadPlugins();
-
-require('prismjs/plugins/line-numbers/prism-line-numbers');
-
 pug.filters.code = function(str, options, locals) {
   const opts = Object.assign({}, options || {}, locals || {});
   const lang = opts.lang || 'plain';
   const start = (typeof opts.start === 'number')? opts.start : null;
+
   const highlighted = (Prism.languages[opts.lang])
     ? Prism.highlight(str, Prism.languages[opts.lang])
     : str;
+
+  const lineNumberGutter = (start !== null)
+    ?   `<span class="line-numbers-rows" style="counter-reset: linenumber ${start - 1}">`
+      + Array(str.split('\n').length).join('<span></span>')
+      + `</span>`
+    : '';
+
   return `<pre class="${(start !== null)? 'line-numbers' : ''}" ${(start !== null)? 'data-start="'+start+'"' : ''}>`
-       +   `<code class="language-${lang}">${highlighted}</code>`
+       +   `<code class="language-${lang}">${lineNumberGutter}${highlighted}</code>`
        + `</pre>`;
 }
 
-gulp.task('default', ['pug']);
+const $ = gulpLoadPlugins();
+const plumberOpt = {
+  errorHandler: function(err) {
+    console.error(err.stack);
+    this.emit('end');
+  },
+}
+
+gulp.task('default', ['pug', 'assets', 'stylus']);
 
 gulp.task('pug', () =>
   gulp.src('content/index.pug')
+    .pipe($.plumber(plumberOpt))
     .pipe($.pug({
       pug: pug,
       pretty: true,
@@ -32,7 +45,25 @@ gulp.task('pug', () =>
     .pipe(gulp.dest('dest/'))
 );
 
-gulp.task('watch', () =>
-  gulp.watch('content/**/*.pug', ['pug'])
+gulp.task('assets', () =>
+  gulp.src('content/assets/**/*')
+    .pipe(gulp.dest('dest/assets/'))
 );
+
+gulp.task('stylus', () =>
+  gulp.src('style/main.styl')
+    .pipe($.plumber(plumberOpt))
+    .pipe($.sourcemaps.init())
+    .pipe($.stylus({
+      'include css': true,
+    }))
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest('dest/'))
+);
+
+gulp.task('watch', ['default'], () => {
+  gulp.watch('content/**/*.pug', ['pug']);
+  gulp.watch('content/assets/**/*', ['assets']);
+  gulp.watch('style/**/*.styl', ['stylus']);
+});
 

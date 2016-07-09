@@ -1,0 +1,50 @@
+@import "../node_modules/normalize.css/normalize.css";
+@import "_code";
+
+// block code
+block-code(bgcolor)
+  pre
+    position: relative
+    padding: 1em 0 1em .5em
+    margin: 3pt 0 3pt 0.146in
+    background-color: bgcolor
+    white-space: pre
+    tab-size: 4
+    box-decoration-break: clone
+
+    margin-right: -50em
+    padding-right: 50em
+    margin-left: -49.854in
+    padding-left: 50in
+
+// inline code
+inline-code(color)
+  *:not(pre) > code
+    color: color
+    font-weight: bold
+
+body
+  margin: auto 1in
+
+img
+  max-width: 100%
+
+code, kbd, pre, samp
+  font-family: Consolas, "Source Code Pro", "Source Han Sans", monospace;
+
+block-code(#eee)
+inline-code(#555)
+
+.trivia
+  padding: 1em 0
+  margin-left: -3in
+  margin-right: -3in
+  padding-left: 3in
+  padding-right: 3in
+  background: #555
+  color: white
+  font-weight: 300
+
+  block-code(#666)
+  inline-code(#bbb)
+

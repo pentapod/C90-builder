@@ -4,6 +4,7 @@ import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import Prism from 'node-prismjs';
 import pug from 'pug';
+import del from 'del';
 
 pug.filters.code = function(str, options, locals) {
   const opts = Object.assign({}, options || {}, locals || {});
@@ -45,9 +46,13 @@ gulp.task('pug', () =>
     .pipe(gulp.dest('dest/'))
 );
 
-gulp.task('assets', () =>
+gulp.task('assets', ['assets:delete'], () =>
   gulp.src('content/assets/**/*')
     .pipe(gulp.dest('dest/assets/'))
+);
+
+gulp.task('assets:delete',
+  del.bind(null, ['dest/assets/**/*'])
 );
 
 gulp.task('stylus', () =>

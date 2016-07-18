@@ -4,6 +4,9 @@
  * @author Lea Verou
  */
 
+pre
+  line-height: 1.5
+
 code[class*="language-"],
 pre[class*="language-"] {
   color: black;
@@ -13,7 +16,6 @@ pre[class*="language-"] {
   word-spacing: normal;
   word-break: normal;
   word-wrap: normal;
-  line-height: 1.5;
 
   -moz-tab-size: 4;
   -o-tab-size: 4;
@@ -137,7 +139,7 @@ pre.line-numbers > code {
 .line-numbers .line-numbers-rows {
   position: absolute;
   pointer-events: none;
-  top: 0;
+  top: -0.2em;
   font-size: 100%;
   left: -3.8em;
   width: 3em; /* works for line-numbers below 1000 lines */

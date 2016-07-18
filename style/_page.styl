@@ -1,0 +1,26 @@
+@page
+  size: $page-width $page-height
+
+@page :left
+  margin-top: $page-margin-top
+  margin-right: $page-margin-inner-width
+  margin-bottom: $page-margin-bottom
+  margin-left: $page-margin-outer-width
+
+  @bottom-left
+    content: counter(page)
+    font: $nombre-font
+    writing-mode: horizontal-tb
+    margin-top: 5mm
+
+@page :right
+  margin-top: $page-margin-top
+  margin-right: $page-margin-outer-width
+  margin-bottom: $page-margin-bottom
+  margin-left: $page-margin-inner-width
+
+  @bottom-right
+    content: counter(page)
+    font: $nombre-font
+    margin-top: 5mm
+

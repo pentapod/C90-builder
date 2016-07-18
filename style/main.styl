@@ -1,17 +1,19 @@
 @import "../node_modules/normalize.css/normalize.css";
+@import "_variable";
 @import "_font";
 @import "_code";
+@import "_page";
 
 :root
-  font: 300 8.5pt/1.8 SourceHanSansJP, sans-serif
-
+  font: $body-font
+  line-height: $body-line-height
 p
   margin: 0
   text-align: justify
   text-indent: 1em
 
 code, pre
-  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', SourceHanSansJP, monospace
+  font-family: $code-font-family
 
 // block code
 block-code(bgcolor)
@@ -36,7 +38,7 @@ inline-code(color)
     font-weight: bold
 
 body
-  margin: auto 1in
+  //margin: auto 1in
 
 img
   max-width: 100%

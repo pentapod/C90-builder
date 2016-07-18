@@ -27,9 +27,10 @@
     "gulp-pug": "^3.0.3",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-stylus": "^2.5.0",
-    "jstransformer-markdown": "^1.1.0",
+    "jstransformer-marked": "^1.0.1",
     "node-prismjs": "^0.1.0",
     "normalize.css": "^4.2.0",
+    "prismjs": "git+https://github.com/PrismJS/prism.git#gh-pages",
     "pug": "^2.0.0-beta3"
   }
 }

@@ -5,6 +5,7 @@ import gulpLoadPlugins from 'gulp-load-plugins';
 import Prism from 'node-prismjs';
 import pug from 'pug';
 import del from 'del';
+import browserSync from 'browser-sync';
 
 pug.filters.code = function(str, options, locals) {
   const opts = Object.assign({}, options || {}, locals || {});
@@ -64,11 +65,28 @@ gulp.task('stylus', () =>
     }))
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('dest/'))
+    .pipe(browserSync.reload({
+      stream: true,
+    }))
 );
 
-gulp.task('watch', ['default'], () => {
+gulp.task('browsersync', () => {
+  browserSync({
+    server: {
+      baseDir: 'dest/',
+      index: 'index.html',
+    },
+  });
+});
+
+gulp.task('bs-reload', () => {
+  browserSync.reload();
+})
+
+gulp.task('watch', ['default', 'browsersync'], () => {
   gulp.watch('content/**/*.pug', ['pug']);
   gulp.watch('content/assets/**/*', ['assets']);
   gulp.watch('style/**/*.styl', ['stylus']);
+  gulp.watch('dest/*.html', ['bs-reload']);
 });
 

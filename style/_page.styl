@@ -1,30 +1,135 @@
-@page
-  size: $page-width $page-height
+base-page-layout($m-top, $m-bottom, $m-outer, $m-inner)
+  margin-top:     $m-top
+  margin-bottom:  $m-bottom
+  margin-right:   '-epubx-expr(page-number % 2 == 0 ? %s : %s)' % ($m-inner $m-outer)
+  margin-left:    '-epubx-expr(page-number % 2 == 0 ? %s : %s)' % ($m-outer $m-inner)
+  width: ($page-width - $m-outer - $m-inner)
+  height: ($page-height - $m-top - $m-bottom)
+  overflow: visible
 
-@page :left
-  margin-top: $page-margin-top
-  margin-right: $page-margin-inner-width
-  margin-bottom: $page-margin-bottom
-  margin-left: $page-margin-outer-width
 
-  @bottom-left
-    content: counter(page)
-    font: $nombre-font
-    writing-mode: horizontal-tb
-    margin-top: 5mm
-
-@page :right
-  margin-top: $page-margin-top
-  margin-right: $page-margin-outer-width
-  margin-bottom: $page-margin-bottom
-  margin-left: $page-margin-inner-width
-
-  @bottom-right
-    content: counter(page)
-    font: $nombre-font
-    margin-top: 5mm
+@media screen
+  body
+    margin: auto 2.55in
 
 section
   page-break-before: always
   page-break-after: always
+
+section#chapter-1
+  page-break-before: left
+
+h1, h2, h3
+  break-after: avoid
+
+pre
+  break-inside: avoid
+
+.trivia
+  page-break-before: always
+  page-break-after: always
+
+.column-2
+  page-break-after: always
+
+@page
+  size: $page-width $page-height
+  bleed: $page-bleed
+
+//[data-type="chapter"]
+//  -epubx-flow-into: chapter
+
+//[data-type="trivia"]
+//  -epubx-flow-into: trivia
+
+@-epubx-page-master
+  .column-2
+    -epubx-flow-into: column-2
+
+  @-epubx-partition
+    -epubx-enabled: '-epubx-expr(page-number % 2 == 0)' % ()
+    content: counter(page)
+    width: 8mm
+    height: 8mm
+    font: $nombre-font
+    bottom: 4mm
+    left: 12mm
+    border: 2px solid #000000
+    border-radius: 2px
+    text-align: right
+
+  @-epubx-partition
+    -epubx-enabled: '-epubx-expr(page-number % 2 == 1)' % ()
+    content: counter(page)
+    width: 8mm
+    height: 8mm
+    font: $nombre-font
+    bottom: 4mm
+    right: 12mm
+    border: 2px solid #000000
+    border-radius: 2px
+
+  @-epubx-partition
+    -epubx-enabled: '-epubx-expr(page-number % 2 == 0)' % ()
+    -epubx-flow-from: column-2
+    left: ($page-margin-inner - $page-margin-outer)
+
+  @-epubx-partition trivia
+    -epubx-flow-from: trivia
+    base-page-layout(0, 0, 0, 0)
+
+  @-epubx-partition chapter
+    -epubx-flow-from: body
+    base-page-layout(
+      $page-margin-top,
+      $page-margin-bottom,
+      $page-margin-left,
+      $page-margin-right)
+/*
+
+  @-epubx-partition
+    -pubx-flow-from: body
+    background-color: #ffff55
+
+@-epubx-page-master trivia
+  @-epubx-partition
+    -epubx-flow-from: trivia
+    base-page-layout(0, 0, 0, 0)
+    background: $trivia-bg
+*/
+@-epubx-page-template
+  .column-2
+    //column-count: 2
+    //column-gap: 3mm
+    //column-fill: auto
+    display: flex
+    flex-wrap: wrap
+    flex-direction: column
+    position: relative
+    width: $page-width - 2 * $page-margin-inner
+    max-height: $page-height - $page-margin-top - $page-margin-bottom
+    & > *
+      width: 45%
+    &.first
+      max-height: 180mm
+    &.last
+      height: $page-height - $page-margin-top - $page-margin-bottom
+
+  .component, .api
+    break-inside: avoid
+
+  .page-outer-area
+    position: relative
+
+  .pull-right
+    left: ($page-margin-outer - $page-margin-inner)
+
+  .pull-left
+    left: ($page-margin-inner - $page-margin-outer)
+
+    & > p
+      margin: 3mm 0
+
+  .postscript-wrapper
+    height: $page-height - $page-margin-top - $page-margin-bottom
 

@@ -2,71 +2,168 @@
 @import "_variable";
 @import "_font";
 @import "_code";
-@import "_page";
+@import "_counter";
+@import "_figure";
 
 :root
   font: $body-font
   line-height: $body-line-height
+  color: #000000
 
 strong
   font-weight: 700
+
+h1, h2, h3, h4, h5, h6
+  margin: 0
+  padding: 0
+  font-weight: 700
+
+h1
+  margin-bottom: 8mm
+  font-size: 22pt
+
+h2
+  margin-top: 5mm
+  font-size: 13pt
+
+h3
+  margin-top: 5mm
+  font-size: 10pt
+
+h4
+  margin-top: 3mm
+  font-size: 10pt
 
 p
   margin: 0
   text-align: justify
   text-indent: 1em
 
-code, pre
+.clearfix:before
+  content: " "
+  display: table
+  clear: both
+
+code, kbd, pre, samp
   font-family: $code-font-family
 
-// block code
-block-code(bgcolor)
-  pre
-    position: relative
-    padding: 1em 0 1em .5em
-    margin: 3pt 0 3pt 0.146in
-    background-color: bgcolor
-    white-space: pre
-    tab-size: 4
-    box-decoration-break: clone
+figure
+  margin: 0
 
-    margin-right: -50em
-    padding-right: 50em
-    margin-left: -49.854in
-    padding-left: 50in
-
-// inline code
-inline-code(color)
-  *:not(pre) > code
-    color: color
-    font-weight: bold
-    margin: 0 0.2em
-    padding: 0.2em 0.3em 0.1em
-    border-radius: 0.2em
-    background-color: rgba(0, 0, 0, 0.1)
-
-body
-  //margin: auto 1in
 
 img
   max-width: 100%
+  border-radius: 2px
+  border: 2px solid #000000
 
-code, kbd, pre, samp
-  font-family: Consolas, "Source Code Pro", "Source Han Sans", monospace;
+table
+  display: inline-block
+  margin: $image-margin
+  border-collapse: collapse
+  th:first-child
+    text-align: right
+  tr.header
+    th
+      text-align: center
+  th, td
+    padding: 1.5mm 4mm 1.5mm 0
+    &:first-child
+      padding-left: 4mm
+    border-top: 2px solid #000000
+    border-bottom: 2px solid #000000
 
-block-code(#eee)
-inline-code(#555)
+pre
+  position: relative
+  padding: 1em 0 1em .5em
+  margin: 3pt 0 3pt 0.146in
+  background-color: #eee
+  white-space: pre
+  tab-size: 4
+  box-decoration-break: clone
+
+  margin-right: -50em
+  padding-right: 50em
+  margin-left: -49.854in
+  padding-left: 50in
+
+*:not(pre) > code
+  color: #555
+  font-weight: bold
+  margin: 0 0.2em
+  padding: 0.2em 0.3em 0.1em
+  border-radius: 0.2em
+  background-color: rgba(0, 0, 0, 0.1)
 
 .trivia
-  padding: 1em 0
-  margin-left: -3in
-  margin-right: -3in
-  padding-left: 3in
-  padding-right: 3in
-  background: #555
-  color: white
   font-weight: 300
 
-  block-code(#666)
-  inline-code(#bbb)
+.component, .api
+  padding: 2mm
+  margin-bottom: 3mm
+  position: relative
+  background-color: #ffffff
+  border-radius: 2px
+  //box-shadow: 0 4px 10px 2px rgba(0, 0, 0, 0.15)
+  border: 2px solid
+
+  badge($text, $color)
+    content: $text
+    background-color: $color
+    color: white
+    padding: 0 8pt
+    font-size: 10pt
+    font-weight: 700
+    position: absolute
+    right: -0.5mm
+    top: 4pt
+    border-radius: 2px 0 0 2px
+
+  h3
+    margin-top: 1mm
+    font-size: 12pt
+
+  &.ios-only:before
+    badge('iOS', blue)
+  &.android-only:before
+    badge('Android', green)
+  &.deprecated:before
+    badge('deprecated', red)
+
+  .description
+    display: flex
+    flex-direction: column
+    &.row
+      flex-direction: row
+
+  figure
+    margin: 0 4mm
+    text-align: center
+
+  img
+    margin: 0
+    border: 0
+
+.postscript-wrapper
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+
+  ul.editions
+    padding: 0
+    list-style: none
+    time
+      display: inline-block
+      width: 10em
+
+  table.info
+    margin: 0
+    width: 100%
+    border-top: 2px solid #000000
+    border-bottom: 1px solid #000000
+    td
+      vertical-align: top
+      border: 0
+      padding-left: 0
+
+@import '_page'
 

@@ -1,0 +1,19 @@
+
+body
+  counter-reset: chapter
+
+section[data-type="chapter"]
+
+  & > h1
+    counter-increment: chapter
+    position: relative
+
+    &::before
+      content: counter(chapter)
+      position: absolute
+      top: -46mm
+      left: -30mm
+      color: #aaaaaa
+      font-size: 160pt
+      font-weight: 400
+

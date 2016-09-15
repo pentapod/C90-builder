@@ -4,16 +4,20 @@ body
 
 section[data-type="chapter"]
 
-  & > h1
-    counter-increment: chapter
-    position: relative
+  counter-increment: chapter
+  position: relative
+  overflow: visible
 
-    &::before
-      content: counter(chapter)
-      position: absolute
-      top: -46mm
-      left: -30mm
-      color: #aaaaaa
-      font-size: 160pt
-      font-weight: 400
+  &::before
+    content: counter(chapter)
+    position: absolute
+    top: -20pt
+    @media screen
+      top: 20pt
+      left: -20pt
+      font-size: 22pt
+    color: #ddd6d4
+    font-size: 32pt
+    font-weight: 700
+    line-height: 0
 

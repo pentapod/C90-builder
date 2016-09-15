@@ -11,6 +11,14 @@ base-page-layout($m-top, $m-bottom, $m-outer, $m-inner)
 @media screen
   body
     margin: auto 2.55in
+    font-size: 10pt
+    overflow-x: hidden
+
+  h1
+    margin: 8mm 0 2mm 0
+
+  section
+    clear: both
 
 section
   page-break-before: always
@@ -54,9 +62,10 @@ pre
     font: $nombre-font
     bottom: 4mm
     left: 12mm
-    border: 2px solid #000000
     border-radius: 2px
     text-align: right
+    background-color: #ddd6d4
+    color: #ffffff
 
   @-epubx-partition
     -epubx-enabled: '-epubx-expr(page-number % 2 == 1)' % ()
@@ -66,8 +75,9 @@ pre
     font: $nombre-font
     bottom: 4mm
     right: 12mm
-    border: 2px solid #000000
     border-radius: 2px
+    background-color: #ddd6d4
+    color: #ffffff
 
   @-epubx-partition
     -epubx-enabled: '-epubx-expr(page-number % 2 == 0)' % ()
